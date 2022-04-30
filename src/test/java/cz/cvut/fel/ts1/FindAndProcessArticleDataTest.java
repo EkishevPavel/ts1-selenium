@@ -10,16 +10,15 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GlobalIterator{
-    static int globalIterator = 0;
-}
-
 
 
 public class FindAndProcessArticleDataTest {
     private static FindAndProcessArticleData findAndProcessArticleData;
 
     WebDriver driver;
+    static class GlobalIterator{
+        static int globalIterator = 0;
+    }
 
 
     @BeforeMethod
