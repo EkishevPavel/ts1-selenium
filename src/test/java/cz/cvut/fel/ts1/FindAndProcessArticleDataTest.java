@@ -36,27 +36,33 @@ public class FindAndProcessArticleDataTest {
     @ParameterizedTest()
     @MethodSource("singleArguments")
     void checkIfProcessArticleDataIsCorrect(String name) throws InterruptedException {
+        //start test for each single argument (name of article)
         System.setProperty("webdriver.chrome.driver", "/Users/Imcheldon/Documents/JAVAPROJECTY/TESTOVANISOFT/chromedriver");
         driver = new ChromeDriver();
         HomePage homePage;
         homePage = new HomePage(driver);
+        //go to home page
         homePage.acceptCOOOOOOCKIE.click();
         homePage.linkToLogIn.click();
+        //sing in
         SignUpLoginPage signUpLoginPage = new SignUpLoginPage(driver);
         signUpLoginPage.inputLoginEmail.sendKeys("imcheldon23@yandex.ru");
         signUpLoginPage.inputLoginPass.sendKeys("14532sss");
         signUpLoginPage.btnLogIn.click();
         Thread.sleep(2000);
 
+        //start search article name
         homePage.inputSearchText.sendKeys(name);
         homePage.searchBtn.click();
         Thread.sleep(1000);
 
+        //click on first article
         SearchResultPage searchResultPage = new SearchResultPage(driver);
         searchResultPage.linkToFirstArticle.click();
 
         Thread.sleep(1000);
         ArticlePage articlePage = new ArticlePage(driver);
+        //check if article publish date and article DOI the same as I found in findAndProcessArticleData
         assertEquals(findAndProcessArticleData.articleDate.get(GlobalIterator.globalIterator), articlePage.publishDate.getAttribute("innerHTML"));
         assertEquals(findAndProcessArticleData.articleDoiUrls.get(GlobalIterator.globalIterator), articlePage.doiUrl.getAttribute("innerHTML"));
         GlobalIterator.globalIterator++;
